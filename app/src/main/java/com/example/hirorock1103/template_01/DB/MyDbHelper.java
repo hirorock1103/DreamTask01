@@ -6,14 +6,22 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class MyDbHelper extends SQLiteOpenHelper {
 
-    private final static int DBVERSION = 2;
-    private final static String DBNAME = "Samle02.db";
+    private final static int DBVERSION = 3;
+    private final static String DBNAME = "DreamTask.db";
     protected final static String TABLE_NAME = "Member";
     protected final static String MEMBER_COLUMN_ID = "id";
     protected final static String MEMBER_COLUMN_NAME = "name";
     protected final static String MEMBER_COLUMN_AGE = "age";
     protected final static String MEMBER_COLUMN_PROFILE_IMAGE = "profile_image";
     protected final static String MEMBER_COLUMN_CREATEDATE = "createdate";
+
+    protected final static String TABLE_DREAM = "Dream";
+    protected final static String DREAM_COLUMN_ID = "id";
+    protected final static String DREAM_COLUMN_TITLE = "title";
+    protected final static String DREAM_COLUMN_DETAIL = "detail";
+    protected final static String DREAM_COLUMN_DEADLINE = "deadline";
+    protected final static String DREAM_COLUMN_CREATEDATE = "createdate";
+
 
     public MyDbHelper(Context context) {
         super(context, DBNAME, null, DBVERSION);
@@ -30,12 +38,26 @@ public class MyDbHelper extends SQLiteOpenHelper {
                 ")" ;
 
         sqLiteDatabase.execSQL(query);
+
+        query = "CREATE TABLE IF NOT EXISTS " + TABLE_DREAM + "(" +
+                DREAM_COLUMN_ID + " integer primary key autoincrement, " +
+                DREAM_COLUMN_TITLE + " text, " +
+                DREAM_COLUMN_DETAIL + " text, " +
+                DREAM_COLUMN_DEADLINE + " text, " +
+                DREAM_COLUMN_CREATEDATE + " text " +
+                ")";
+
+        sqLiteDatabase.execSQL(query);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         String query = "DROP TABLE IF EXISTS " + TABLE_NAME;
         sqLiteDatabase.execSQL(query);
+
+        query = "DROP TABLE IF EXISTS " + TABLE_DREAM;
+        sqLiteDatabase.execSQL(query);
+
         onCreate(sqLiteDatabase);
     }
 }
