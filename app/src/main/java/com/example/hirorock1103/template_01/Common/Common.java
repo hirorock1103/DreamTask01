@@ -16,6 +16,7 @@ public class Common {
 
     public static String DB_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static String DATE_FORMAT_SAMPLE_1 = "yyyy/MM/dd";
+    public static String DATE_FORMAT_SAMPLE_2 = "yyyy/MM/dd HH:mm";
 
     /**
      * 日付変更
@@ -77,6 +78,33 @@ public class Common {
 
 
         return date;
+
+    }
+
+    /**
+     * differece between 2 date
+     */
+    public static int getDateDiff(String from, String to, String format){
+
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date dateTo = null;
+        Date dateFrom = null;
+
+        // Date型に変換
+        try {
+            dateFrom = sdf.parse(from);
+            dateTo = sdf.parse(to);
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        // 差分の日数を計算する
+        long dateTimeTo = dateTo.getTime();
+        long dateTimeFrom = dateFrom.getTime();
+        long dayDiff = ( dateTimeTo - dateTimeFrom  ) / (1000 * 60 * 60 * 24 );
+
+
+        return (int)dayDiff;
 
     }
 

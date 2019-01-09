@@ -59,4 +59,8 @@
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
     </style>
+
+    <style name="bt_style_2_small_accent" parent="bt_style_2_small">
+        <item name="android:background">@drawable/btn_radius_selector_primary</item>
+    </style>
 </resources>

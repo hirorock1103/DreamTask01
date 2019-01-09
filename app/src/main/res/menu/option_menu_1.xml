@@ -6,6 +6,6 @@
         android:title="カテゴリ編集"/>
     <item
         android:id="@+id/option2"
-        android:title="このカテゴリを非表示"/>
+        android:title="このカテゴリを削除"/>
 
 </menu>

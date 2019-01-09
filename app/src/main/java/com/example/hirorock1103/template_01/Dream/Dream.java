@@ -8,6 +8,15 @@ public class Dream {
     private String deadline;
     private String createdate;
 
+    public Dream(){
+
+    }
+
+    public Dream(String title, String deadline){
+        this.title = title;
+        this.deadline = deadline;
+    }
+
     public int getId() {
         return id;
     }
