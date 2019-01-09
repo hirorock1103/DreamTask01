@@ -4,29 +4,51 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <ImageButton
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:background="@null"
         android:src="@mipmap/plus"
         android:id="@+id/bt_1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toLeftOf="@id/bt_2"
         app:layout_constraintLeft_toLeftOf="parent"
+        />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="dream list"
+        android:id="@+id/title1"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintTop_toBottomOf="@id/bt_1"
+        app:layout_constraintLeft_toLeftOf="@id/bt_1"
+        app:layout_constraintRight_toRightOf="@id/bt_1"
         />
 
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:src="@mipmap/pencil"
         android:id="@+id/bt_2"
+        android:background="@null"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/bt_1"
         app:layout_constraintRight_toRightOf="parent"
 
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="add Dream"
+        android:id="@+id/title2"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toBottomOf="@+id/title1"
+        app:layout_constraintLeft_toLeftOf="@id/bt_2"
+        app:layout_constraintRight_toRightOf="@id/bt_2"
         />
 
 

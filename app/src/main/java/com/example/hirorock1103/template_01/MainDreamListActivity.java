@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class MainDreamListActivity extends AppCompatActivity {
 
@@ -75,6 +77,7 @@ public class MainDreamListActivity extends AppCompatActivity {
         private TextView no;
         private TextView diff;
         private TextView createdate;
+        private ImageView achievement;
         private ConstraintLayout layout;
 
         public DreamViewHolder(@NonNull View itemView) {
@@ -85,6 +88,7 @@ public class MainDreamListActivity extends AppCompatActivity {
             diff = itemView.findViewById(R.id.diff);
             detail = itemView.findViewById(R.id.detail);
             createdate = itemView.findViewById(R.id.createdate);
+            achievement = itemView.findViewById(R.id.achievement);
             layout = itemView.findViewById(R.id.layout);
 
         }
@@ -126,6 +130,12 @@ public class MainDreamListActivity extends AppCompatActivity {
                 dreamViewHolder.diff.setText("no deadline setted");
             }
 
+            Random rand = new Random();
+            int num = rand.nextInt(10);
+            if(num % 2 == 0){
+                dreamViewHolder.achievement.setImageDrawable(getDrawable(R.drawable.achieve));
+            }
+
             dreamViewHolder.detail.setText(dream.getDetail());
             dreamViewHolder.createdate.setText(Common.formatStrToDate(dream.getCreatedate(), Common.DB_DATE_FORMAT, Common.DATE_FORMAT_SAMPLE_2));
             dreamViewHolder.layout.setOnClickListener(new View.OnClickListener() {
@@ -160,11 +170,8 @@ public class MainDreamListActivity extends AppCompatActivity {
                 DialogFragment dialogFragment = new DialogEditDream();
                 Bundle bundle = new Bundle();
                 bundle.putInt("dreamId", dreamId);
-
                 dialogFragment.setArguments(bundle);
-
                 dialogFragment.show(getSupportFragmentManager(), null);
-
 
                 break;
 
