@@ -3,6 +3,8 @@ package com.example.hirorock1103.template_01;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 
 import com.example.hirorock1103.template_01.Common.Common;
 import com.example.hirorock1103.template_01.DB.DreamManager;
+import com.example.hirorock1103.template_01.Dialog.DialogEditDream;
 import com.example.hirorock1103.template_01.Dream.Dream;
 import com.example.hirorock1103.template_01.R;
 
@@ -33,6 +36,8 @@ public class MainDreamListActivity extends AppCompatActivity {
     private DreamAdapter adapter;
     private List<Dream> list;
     private DreamManager dreamManager;
+
+    private int dreamId = 0;
 
 
     @Override
@@ -132,6 +137,7 @@ public class MainDreamListActivity extends AppCompatActivity {
                 }
             });
 
+            dreamViewHolder.layout.setTag(String.valueOf(dream.getId()));
             registerForContextMenu(dreamViewHolder.layout);//onContextItemSelectedにて挙動設定
         }
 
@@ -145,14 +151,26 @@ public class MainDreamListActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
+
+
         switch (item.getItemId()){
 
             case R.id.option1:
+                //edit
+                DialogFragment dialogFragment = new DialogEditDream();
+                Bundle bundle = new Bundle();
+                bundle.putInt("dreamId", dreamId);
+
+                dialogFragment.setArguments(bundle);
+
+                dialogFragment.show(getSupportFragmentManager(), null);
+
+
                 break;
 
             case R.id.option2:
                 //delete
-                
+
                 break;
 
         }
@@ -164,6 +182,11 @@ public class MainDreamListActivity extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.option_menu_1, menu);
+
+        String tag = v.getTag().toString();
+        dreamId = Integer.parseInt(tag);
+
+        Common.log("tag:" + dreamId);
 
     }
 
