@@ -18,7 +18,7 @@ public class DialogDatepick extends AppCompatDialogFragment implements DatePicke
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         try{
-            
+
             Bundle bundle = getArguments();
 
         }catch(Exception e){
