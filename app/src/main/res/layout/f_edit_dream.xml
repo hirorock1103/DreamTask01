@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="50dp"
+    android:id="@+id/layout"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -12,11 +13,8 @@
         android:text="Dream"
         android:textSize="@dimen/Small"
         android:id="@+id/title1"
-
         app:layout_constraintBottom_toTopOf="@id/edit_title"
         app:layout_constraintLeft_toLeftOf="@id/edit_title"
-
-
         />
 
     <EditText
@@ -59,6 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:id="@+id/guide_date"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
         android:layout_marginLeft="5dp"
@@ -73,7 +72,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="画像"
-
         android:id="@+id/title4"
         android:textSize="@dimen/Small"
         app:layout_constraintLeft_toLeftOf="@id/title1"

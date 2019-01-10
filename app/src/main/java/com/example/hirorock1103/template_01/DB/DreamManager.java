@@ -25,6 +25,7 @@ public class DreamManager extends MyDbHelper {
         values.put(DREAM_COLUMN_TITLE, dream.getTitle());
         values.put(DREAM_COLUMN_DETAIL, dream.getDetail());
         values.put(DREAM_COLUMN_DEADLINE, dream.getDeadline());
+        values.put(DREAM_COLUMN_IMAGE, dream.getImage());
         values.put(DREAM_COLUMN_CREATEDATE, Common.formatDate(new Date(), Common.DB_DATE_FORMAT));
 
         SQLiteDatabase db = getWritableDatabase();
@@ -51,6 +52,7 @@ public class DreamManager extends MyDbHelper {
             dream.setTitle(c.getString(c.getColumnIndex(DREAM_COLUMN_TITLE)));
             dream.setDetail(c.getString(c.getColumnIndex(DREAM_COLUMN_DETAIL)));
             dream.setDeadline(c.getString(c.getColumnIndex(DREAM_COLUMN_DEADLINE)));
+            dream.setImage(c.getBlob(c.getColumnIndex(DREAM_COLUMN_IMAGE)));
             dream.setCreatedate(c.getString(c.getColumnIndex(DREAM_COLUMN_CREATEDATE)));
 
             list.add(dream);
@@ -77,6 +79,7 @@ public class DreamManager extends MyDbHelper {
             dream.setTitle(c.getString(c.getColumnIndex(DREAM_COLUMN_TITLE)));
             dream.setDetail(c.getString(c.getColumnIndex(DREAM_COLUMN_DETAIL)));
             dream.setDeadline(c.getString(c.getColumnIndex(DREAM_COLUMN_DEADLINE)));
+            dream.setImage(c.getBlob(c.getColumnIndex(DREAM_COLUMN_IMAGE)));
             dream.setCreatedate(c.getString(c.getColumnIndex(DREAM_COLUMN_CREATEDATE)));
 
             c.moveToNext();

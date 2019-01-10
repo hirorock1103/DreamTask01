@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.hirorock1103.template_01.Common.Common;
 import com.example.hirorock1103.template_01.Dialog.DialogEditDream;
 import com.example.hirorock1103.template_01.MainDreamListActivity;
 import com.example.hirorock1103.template_01.R;

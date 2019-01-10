@@ -1,9 +1,12 @@
 package com.example.hirorock1103.template_01.Common;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
 import android.util.Log;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.text.ParseException;
@@ -135,6 +138,12 @@ public class Common {
             inputMethodManager.hideSoftInputFromWindow(layout.getWindowToken(), inputMethodManager.HIDE_NOT_ALWAYS);
             layout.requestFocus();
 
+        }
+        public void setKeyBoardHide(Context context, EditText edittext, Dialog dialog){
+
+            dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(edittext.getWindowToken(), 0);
         }
     }
 
