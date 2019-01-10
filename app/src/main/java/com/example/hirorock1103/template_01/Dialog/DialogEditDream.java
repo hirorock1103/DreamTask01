@@ -1,5 +1,6 @@
 package com.example.hirorock1103.template_01.Dialog;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -38,6 +39,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class DialogEditDream extends AppCompatDialogFragment {
 
+    private final static int PICWIDTH = 200;
+
     private String mode = "new";//when dreamId is not empty ,change edit mode
 
     //view for edit
@@ -51,12 +54,21 @@ public class DialogEditDream extends AppCompatDialogFragment {
 
     //
     Dialog dialog;
+    AlertDialog.Builder builder;
 
     //manager
     DreamManager dreamManager;
 
     //dream id
     private int dreamId;
+
+    //Listener
+    public EditResultListner listner;
+
+    public interface EditResultListner{
+        public void editResultNotice();
+    }
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,7 +84,9 @@ public class DialogEditDream extends AppCompatDialogFragment {
             pickDate = view.findViewById(R.id.pick_date);
             image_area = view.findViewById(R.id.image_area);
             setListener();
-            
+
+            dreamManager = new DreamManager(getActivity());
+
 
         try{
             //judge Edit mode
@@ -87,12 +101,15 @@ public class DialogEditDream extends AppCompatDialogFragment {
             //set data to view
             title.setText(dream.getTitle());
             guide_date.setText(dream.getDeadline());
-            if(dream.getDeadline().isEmpty()){
+            if(dream.getDeadline() == null){
                 guide_date.setText("日程未選択です");
             }
 
-            byteImage = dream.getImage();
-            image_area.setImageBitmap(BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length));
+            if(dream.getImage() != null){
+                byteImage = dream.getImage();
+                image_area.setImageBitmap(BitmapFactory.decodeByteArray(byteImage, 0, byteImage.length));
+            }
+
             //■■■■■■■■■■■■■　get data by dreamId　■■■■■■■■■■■
 
 
@@ -103,7 +120,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
         }
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder = new AlertDialog.Builder(getContext());
 
         if(mode == "new"){
 
@@ -114,8 +131,12 @@ public class DialogEditDream extends AppCompatDialogFragment {
                     .setPositiveButton("登録", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //ok button is clicked
 
+                            Dream dream = new Dream();
+                            dream.setTitle(title.getText().toString());
+                            dream.setImage(byteImage);
+                            dreamManager.addDream(dream);
+                            listner.editResultNotice();
 
                         }
                     })
@@ -136,15 +157,16 @@ public class DialogEditDream extends AppCompatDialogFragment {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             //ok button is clicked
-
+                            Dream dream = new Dream();
+                            dream.setId(dreamId);
+                            dream.setTitle(title.getText().toString());
+                            dream.setImage(byteImage);
+                            long insertId = dreamManager.update(dream);
+                            Common.log("insertId:" + insertId);
+                            listner.editResultNotice();
                         }
                     })
-                    .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
+                    .setNegativeButton("cancel", null);
             dialog = builder.create();
 
 
@@ -213,6 +235,12 @@ public class DialogEditDream extends AppCompatDialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        try{
+            listner = (EditResultListner)context;
+        }catch(Exception e){
+            Common.log(e.getMessage());
+        }
+
 
     }
 
@@ -241,7 +269,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
                     int width = imageOptions.outWidth;
 
                     int p = 1;
-                    while(width > 50){
+                    while(width > PICWIDTH){
                         //縮小率を決める
                         p *= 2;
                         width /= p;

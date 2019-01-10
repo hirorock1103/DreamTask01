@@ -1,6 +1,7 @@
 package com.example.hirorock1103.template_01;
 
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.hirorock1103.template_01.Dialog.DialogEditDream;
 import com.example.hirorock1103.template_01.Fragments.FragTest;
 import com.example.hirorock1103.template_01.Fragments.FragTop;
 import com.example.hirorock1103.template_01.Member.Member;
@@ -16,7 +18,7 @@ import com.example.hirorock1103.template_01.DB.MemberManager;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DialogEditDream.EditResultListner{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
             transaction.commit();
         }
 
+    }
 
+    @Override
+    public void editResultNotice() {
+        View view = findViewById(android.R.id.content);
+        Snackbar.make(view,"Dreamが新規追加されました。",Snackbar.LENGTH_SHORT).show();
     }
 }

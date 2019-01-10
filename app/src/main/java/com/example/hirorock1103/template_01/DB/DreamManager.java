@@ -88,5 +88,31 @@ public class DreamManager extends MyDbHelper {
         return dream;
     }
 
+    public long update(Dream dream){
+
+        ContentValues values = new ContentValues();
+        values.put(DREAM_COLUMN_TITLE, dream.getTitle());
+        values.put(DREAM_COLUMN_DETAIL, dream.getDetail());
+        values.put(DREAM_COLUMN_DEADLINE, dream.getDeadline());
+        values.put(DREAM_COLUMN_IMAGE, dream.getImage());
+
+        SQLiteDatabase db = getWritableDatabase();
+
+        String[] args = new String[]{String.valueOf(dream.getId())};
+
+        long insertId = db.update(TABLE_DREAM, values, DREAM_COLUMN_ID + " = ?", args);
+
+        return insertId;
+
+    }
+
+    public void delete(int dreamId){
+
+        SQLiteDatabase db = getWritableDatabase();
+        String query = "DELETE FROM " + TABLE_DREAM + " WHERE " + DREAM_COLUMN_ID + " = " + dreamId;
+        db.execSQL(query);
+
+
+    }
 
 }
