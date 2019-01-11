@@ -20,7 +20,7 @@
         android:id="@+id/title1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="open books"
+        android:text="Dreams in 2019"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintLeft_toRightOf="@id/bt_1"
         app:layout_constraintTop_toTopOf="@id/bt_1"
@@ -40,8 +40,6 @@
 
 
     </android.support.v7.widget.RecyclerView>
-
-
 
 
 </android.support.constraint.ConstraintLayout>

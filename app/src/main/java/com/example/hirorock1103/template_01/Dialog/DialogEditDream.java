@@ -2,6 +2,7 @@ package com.example.hirorock1103.template_01.Dialog;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatDialogFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +50,6 @@ public class DialogEditDream extends AppCompatDialogFragment {
     private ConstraintLayout layout;
     private EditText title;
     private TextView guide_date;
-    private Button pickDate;
     private Button pickImage;
     private byte[] byteImage;
     private ImageView image_area;
@@ -65,14 +67,20 @@ public class DialogEditDream extends AppCompatDialogFragment {
     //Listener
     public EditResultListner listner;
 
+
     public interface EditResultListner{
         public void editResultNotice();
+    }
+
+    public void setText(String date){
+        guide_date.setText(date);
     }
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreateDialog(savedInstanceState);
+
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.f_edit_dream, null);
 
@@ -81,7 +89,6 @@ public class DialogEditDream extends AppCompatDialogFragment {
             title = view.findViewById(R.id.edit_title);
             guide_date = view.findViewById(R.id.guide_date);
             pickImage = view.findViewById(R.id.pick_image);
-            pickDate = view.findViewById(R.id.pick_date);
             image_area = view.findViewById(R.id.image_area);
             setListener();
 
@@ -200,16 +207,6 @@ public class DialogEditDream extends AppCompatDialogFragment {
     private void setListener(){
 
 
-        pickDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //date pickerを呼ぶ
-                DialogFragment dialogFragment = new DialogDatepick();
-                Bundle bundle = new Bundle();
-                dialogFragment.show(getFragmentManager(),null);
-            }
-        });
-
         pickImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,6 +226,16 @@ public class DialogEditDream extends AppCompatDialogFragment {
             }
         });
 
+        guide_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //date pickerを呼ぶ
+                DialogFragment dialogFragment = new DialogDatepick();
+                Bundle bundle = new Bundle();
+                dialogFragment.show(getFragmentManager(),null);
+            }
+        });
+
     }
 
     @Override
@@ -241,8 +248,8 @@ public class DialogEditDream extends AppCompatDialogFragment {
             Common.log(e.getMessage());
         }
 
-
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -308,6 +315,10 @@ public class DialogEditDream extends AppCompatDialogFragment {
                     e.printStackTrace();
                     Common.log(e.getMessage());
                 }
+
+            }else if(requestCode == 20){
+
+                Common.log("get data from datepick fragment by code 20");
 
             }
 

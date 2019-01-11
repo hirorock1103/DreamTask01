@@ -36,35 +36,25 @@
         android:text="期限( ex 2019/01/03)"
         android:id="@+id/title3"
         android:textSize="@dimen/Small"
+        android:layout_marginBottom="7dp"
         app:layout_constraintLeft_toLeftOf="@id/title1"
-        app:layout_constraintBottom_toTopOf="@id/pick_date"
+        app:layout_constraintBottom_toTopOf="@id/guide_date"
 
         />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="pick date"
-        android:id="@+id/pick_date"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="50dp"
-        app:layout_constraintLeft_toLeftOf="@id/edit_title"
-        app:layout_constraintTop_toBottomOf="@id/edit_title"
-
-        />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="日付を選択してください"
         android:id="@+id/guide_date"
+        android:layout_marginTop="30dp"
         android:paddingTop="2dp"
         android:paddingBottom="2dp"
         android:layout_marginLeft="5dp"
         style="@style/background_corner_radius_primary_dark"
-        app:layout_constraintLeft_toRightOf="@+id/pick_date"
-        app:layout_constraintTop_toTopOf="@+id/pick_date"
-        app:layout_constraintBottom_toBottomOf="@+id/pick_date"
+        app:layout_constraintLeft_toLeftOf="@id/edit_title"
+        app:layout_constraintTop_toBottomOf="@id/edit_title"
 
         />
 
@@ -85,8 +75,8 @@
         android:id="@+id/pick_image"
         android:text="参照"
         android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@id/pick_date"
-        app:layout_constraintLeft_toLeftOf="@+id/pick_date"
+        app:layout_constraintTop_toBottomOf="@id/guide_date"
+        app:layout_constraintLeft_toLeftOf="@+id/guide_date"
         />
 
     <ImageView

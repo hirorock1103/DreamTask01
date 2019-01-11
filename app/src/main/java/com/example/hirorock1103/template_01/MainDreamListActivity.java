@@ -9,6 +9,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 
 import com.example.hirorock1103.template_01.Common.Common;
 import com.example.hirorock1103.template_01.DB.DreamManager;
+import com.example.hirorock1103.template_01.Dialog.DialogDatepick;
 import com.example.hirorock1103.template_01.Dialog.DialogEditDream;
 import com.example.hirorock1103.template_01.Dream.Dream;
 import com.example.hirorock1103.template_01.R;
@@ -38,7 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainDreamListActivity extends AppCompatActivity implements DialogEditDream.EditResultListner {
+public class MainDreamListActivity extends AppCompatActivity implements DialogEditDream.EditResultListner, DialogDatepick.DateListener {
 
     private RecyclerView recyclerView;
     private DreamAdapter adapter;
@@ -49,6 +51,7 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
 
     FloatingActionButton fab;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +99,24 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
 
         View view = findViewById(android.R.id.content);
         Snackbar.make(view,"Dreamが"+mode+"されました。",Snackbar.LENGTH_SHORT).show();
+    }
+
+    /**
+     * DialogEditDreamのメソッドを呼ぶ　※dialogの内容は、DialogEditDreamのメソッドでハンドリングする
+     * @param date
+     */
+    @Override
+    public void getDate(String date) {
+
+        //！！！！！！！！！！！！Activity上に表示しているdialogを取得する！！！！！！！！！！！！！！
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("mydialog");
+        if(fragment!=null){
+            DialogEditDream dialogEditDream = (DialogEditDream)fragment;
+            dialogEditDream.setText(date);
+        }
+
+
     }
 
     /********************************************
@@ -223,7 +244,8 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
                 Bundle bundle = new Bundle();
                 bundle.putInt("dreamId", dreamId);
                 dialogFragment.setArguments(bundle);
-                dialogFragment.show(getSupportFragmentManager(), null);
+                dialogFragment.show(getSupportFragmentManager(), "mydialog");
+
 
                 break;
 

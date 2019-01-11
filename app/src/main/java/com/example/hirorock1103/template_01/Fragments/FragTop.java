@@ -49,7 +49,7 @@ public class FragTop extends Fragment {
 
         View view = inflater.inflate(R.layout.f_top,container,false);
 
-        
+
         bt1 = view.findViewById(R.id.bt_1);
         bt1.setOnClickListener(new View.OnClickListener() {
             @Override
