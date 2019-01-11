@@ -51,7 +51,7 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
 
     FloatingActionButton fab;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +80,7 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
             public void onClick(View v) {
                 //open dialog
                 DialogFragment dialogFragment = new DialogEditDream();
-                dialogFragment.show(getSupportFragmentManager(), null);
+                dialogFragment.show(getSupportFragmentManager(), "mydialog");
             }
         });
 
@@ -101,23 +101,6 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
         Snackbar.make(view,"Dreamが"+mode+"されました。",Snackbar.LENGTH_SHORT).show();
     }
 
-    /**
-     * DialogEditDreamのメソッドを呼ぶ　※dialogの内容は、DialogEditDreamのメソッドでハンドリングする
-     * @param date
-     */
-    @Override
-    public void getDate(String date) {
-
-        //！！！！！！！！！！！！Activity上に表示しているdialogを取得する！！！！！！！！！！！！！！
-
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag("mydialog");
-        if(fragment!=null){
-            DialogEditDream dialogEditDream = (DialogEditDream)fragment;
-            dialogEditDream.setText(date);
-        }
-
-
-    }
 
     /********************************************
      * recycler view
@@ -285,4 +268,25 @@ public class MainDreamListActivity extends AppCompatActivity implements DialogEd
 
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * DialogEditDreamのメソッドを呼ぶ　※dialogの内容は、DialogEditDreamのメソッドでハンドリングする
+     * @param date
+     */
+    @Override
+    public void getDate(String date) {
+
+        //！！！！！！！！！！！！Activity上に表示しているdialogを取得する！！！！！！！！！！！！！！
+
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag("mydialog");
+        if(fragment!=null){
+            DialogEditDream dialogEditDream = (DialogEditDream)fragment;
+            dialogEditDream.setText(date);
+            View view = findViewById(android.R.id.content);
+            Snackbar.make(view,"日付がセットされました。",Snackbar.LENGTH_SHORT).show();
+        }
+
+
+    }
+
 }

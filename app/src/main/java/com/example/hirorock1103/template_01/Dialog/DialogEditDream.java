@@ -37,6 +37,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Calendar;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -51,6 +53,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
     private EditText title;
     private TextView guide_date;
     private Button pickImage;
+    private ImageView pick_cal;
     private byte[] byteImage;
     private ImageView image_area;
 
@@ -74,6 +77,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
 
     public void setText(String date){
         guide_date.setText(date);
+        Common.log("setText:" + date);
     }
 
 
@@ -88,6 +92,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
             layout = view.findViewById(R.id.layout);
             title = view.findViewById(R.id.edit_title);
             guide_date = view.findViewById(R.id.guide_date);
+            pick_cal = view.findViewById(R.id.pick_cal);
             pickImage = view.findViewById(R.id.pick_image);
             image_area = view.findViewById(R.id.image_area);
             setListener();
@@ -109,7 +114,10 @@ public class DialogEditDream extends AppCompatDialogFragment {
             title.setText(dream.getTitle());
             guide_date.setText(dream.getDeadline());
             if(dream.getDeadline() == null){
-                guide_date.setText("日程未選択です");
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.YEAR, 1);
+                Date nextyear = cal.getTime();
+                guide_date.setText(Common.formatDate(nextyear, Common.DATE_FORMAT_SAMPLE_1));
             }
 
             if(dream.getImage() != null){
@@ -131,7 +139,10 @@ public class DialogEditDream extends AppCompatDialogFragment {
 
         if(mode == "new"){
 
-            guide_date.setText("日程未選択です");
+            Calendar cal = Calendar.getInstance();
+            cal.add(Calendar.YEAR, 1);
+            Date nextyear = cal.getTime();
+            guide_date.setText(Common.formatDate(nextyear, Common.DATE_FORMAT_SAMPLE_1));
 
             builder.setView(view)
                     .setTitle("add Dream")
@@ -142,6 +153,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
                             Dream dream = new Dream();
                             dream.setTitle(title.getText().toString());
                             dream.setImage(byteImage);
+                            dream.setDeadline(guide_date.getText().toString());
                             dreamManager.addDream(dream);
                             listner.editResultNotice();
 
@@ -168,6 +180,7 @@ public class DialogEditDream extends AppCompatDialogFragment {
                             dream.setId(dreamId);
                             dream.setTitle(title.getText().toString());
                             dream.setImage(byteImage);
+                            dream.setDeadline(guide_date.getText().toString());
                             long insertId = dreamManager.update(dream);
                             Common.log("insertId:" + insertId);
                             listner.editResultNotice();
@@ -227,6 +240,16 @@ public class DialogEditDream extends AppCompatDialogFragment {
         });
 
         guide_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //date pickerを呼ぶ
+                DialogFragment dialogFragment = new DialogDatepick();
+                Bundle bundle = new Bundle();
+                dialogFragment.show(getFragmentManager(),null);
+            }
+        });
+
+        pick_cal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //date pickerを呼ぶ

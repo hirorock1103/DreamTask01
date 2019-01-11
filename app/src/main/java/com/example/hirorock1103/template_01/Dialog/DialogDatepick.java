@@ -25,7 +25,7 @@ public class DialogDatepick extends AppCompatDialogFragment implements DatePicke
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Common.log("onAttach");
+
         try{
             listener = (DateListener)context;
         }catch(Exception e){
@@ -35,21 +35,7 @@ public class DialogDatepick extends AppCompatDialogFragment implements DatePicke
     }
 
     @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-        Common.log("onAttachFragment");
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
-        try{
-
-            Bundle bundle = getArguments();
-
-        }catch(Exception e){
-            Common.log(e.getMessage());
-        }
 
         //default 1年後
         final Calendar calendar = Calendar.getInstance();
@@ -64,10 +50,11 @@ public class DialogDatepick extends AppCompatDialogFragment implements DatePicke
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         //取得結果
-        Common.log("ondataSet " + year +"/"+ (month + 1) +"/"+ dayOfMonth);
+        Common.log("ondataSet " + year +"/"+ String.format("%02d",(month + 1)) +"/"+ String.format("%02d",dayOfMonth));
+
         //取得した値を呼び出し元に通知する
         try{
-            listener.getDate(year +"/"+ (month + 1) +"/"+ dayOfMonth);
+            listener.getDate(year +"/"+ String.format("%02d",(month + 1)) +"/"+ String.format("%02d",dayOfMonth));
         }catch (Exception e){
             Common.log(e.getMessage());
         }

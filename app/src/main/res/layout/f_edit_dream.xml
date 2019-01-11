@@ -33,13 +33,23 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="期限( ex 2019/01/03)"
+        android:text="期限（夢を叶える日）"
         android:id="@+id/title3"
         android:textSize="@dimen/Small"
         android:layout_marginBottom="7dp"
         app:layout_constraintLeft_toLeftOf="@id/title1"
         app:layout_constraintBottom_toTopOf="@id/guide_date"
 
+        />
+
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@mipmap/cal"
+        android:id="@+id/pick_cal"
+        app:layout_constraintLeft_toRightOf="@id/guide_date"
+        app:layout_constraintBottom_toBottomOf="@id/guide_date"
+        app:layout_constraintTop_toTopOf="@id/guide_date"
         />
 
 
